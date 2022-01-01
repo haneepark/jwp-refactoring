@@ -1,6 +1,7 @@
 package kitchenpos.domain;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 
 public class Menu {
@@ -9,6 +10,22 @@ public class Menu {
     private BigDecimal price;
     private Long menuGroupId;
     private List<MenuProduct> menuProducts;
+
+    public Menu() {
+    }
+
+    public static Menu ofSingleProduct(MenuGroup menuGroup, Product product) {
+        final MenuProduct menuProduct = new MenuProduct();
+        menuProduct.setProductId(product.getId());
+        menuProduct.setQuantity(1);
+
+        final Menu menu = new Menu();
+        menu.setName(product.getName());
+        menu.setPrice(product.getPrice());
+        menu.setMenuGroupId(menuGroup.getId());
+        menu.setMenuProducts(Collections.singletonList(menuProduct));
+        return menu;
+    }
 
     public Long getId() {
         return id;
